@@ -1,0 +1,12 @@
+# Default values for pod-and-pv.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: nginx
+  tag: latest
+
+persistence:
+  storageClassName: lvms-vg1
+  accessModes:
+    - ReadWriteOnce
+  size: 100Mi
