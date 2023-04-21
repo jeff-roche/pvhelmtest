@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: "{{ $.Chart.Name }}-pvc{{ $i }}"
+  namespace: pvtest
 spec:
   storageClassName: {{ $.Values.persistence.storageClassName }}
   accessModes:
