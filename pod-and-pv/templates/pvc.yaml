@@ -1,9 +1,9 @@
-{{- range $i := until 30 }}
+{{- range $i := until (.Values.replicaCount | int) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "{{ $.Chart.Name }}-pvc{{ $i }}"
-  namespace: pvtest
+  name: {{ $.Chart.Name }}-pvc{{ $i }}
+  namespace: {{ $.Values.namespace }}
 spec:
   storageClassName: {{ $.Values.persistence.storageClassName }}
   accessModes:
@@ -13,5 +13,4 @@ spec:
       storage: {{ $.Values.persistence.size }}
 
 ---
-
 {{- end }}
