@@ -1,0 +1,12 @@
+{{- range $i := until (.Values.snapshotCount | int) }}
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: {{ $.Chart.Name }}-snapshot{{ $i }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  volumeSnapshotClassName: {{ $.Values.persistence.storageClassName }}
+  source:
+    persistentVolumeClaimName: {{ $.Chart.Name }}-pvc{{ $i }}
+---
+{{- end }}

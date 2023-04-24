@@ -1,22 +1,19 @@
-
-{{- range $i := until 30 }}
+{{- range $i := until (.Values.replicaCount | int) }}
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ $.Chart.Name }}-pod-{{ $i }}"
-  namespace: pvtest
+  name: {{ $.Chart.Name }}-pod-{{ $i }}
+  namespace: {{ $.Values.namespace }}
 spec:
   containers:
     - name: {{ $.Chart.Name }}
-      image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+      image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
       volumeMounts:
-        - name: "{{ $.Chart.Name }}-volume{{ $i }}"
+        - name: {{ $.Chart.Name }}-volume{{ $i }}
           mountPath: /usr/data
   volumes:
-    - name: "{{ $.Chart.Name }}-volume{{ $i }}"
+    - name: {{ $.Chart.Name }}-volume{{ $i }}
       persistentVolumeClaim:
-        claimName: "{{ $.Chart.Name }}-pvc{{ $i }}"
-
+        claimName: {{ $.Chart.Name }}-pvc{{ $i }}
 ---
-
 {{- end }}
